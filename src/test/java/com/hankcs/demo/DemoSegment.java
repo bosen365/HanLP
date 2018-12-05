@@ -39,7 +39,10 @@ public class DemoSegment
         for (String sentence : testCase)
         {
             List<Term> termList = HanLP.segment(sentence);
-            System.out.println(termList);
+            for(Term t : termList){
+                System.out.print(t.word + " ");
+            }
+            System.out.println();
         }
     }
 }
