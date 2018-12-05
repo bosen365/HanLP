@@ -108,8 +108,15 @@ public class CustomDictionary
             {
                 attributeList.add(entry.getValue());
             }
-            DataOutputStream out = new DataOutputStream(IOUtil.newOutputStream(mainPath + Predefine.BIN_EXT));
+            DataOutputStream out = new DataOutputStream(new BufferedOutputStream(IOUtil.newOutputStream(mainPath + Predefine.BIN_EXT)));
             // 缓存用户词性
+            if (customNatureCollector.isEmpty()) // 热更新
+            {
+                for (int i = Nature.begin.ordinal() + 1; i < Nature.values().length; ++i)
+                {
+                    customNatureCollector.add(Nature.values()[i]);
+                }
+            }
             IOUtil.writeCustomNature(out, customNatureCollector);
             // 缓存正文
             out.writeInt(attributeList.size());
